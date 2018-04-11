@@ -1,8 +1,8 @@
 Summary:	Firefox WebDriver support
 Name:		selenium-firefoxdriver
 Version:	3.8.0
-Release:	0.1
-License:	- (enter GPL/GPL v2/GPL v3/LGPL/BSD/BSD-like/other license name here)
+Release:	1
+License:	Distributable
 Group:		Applications
 Source0:	http://http.debian.net/debian/pool/non-free/s/selenium-firefoxdriver/%{name}_%{version}.orig.tar.gz
 # Source0-md5:	e578d75398cd201c6cec5111be51a877
