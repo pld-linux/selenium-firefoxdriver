@@ -1,4 +1,5 @@
 Summary:	Firefox WebDriver support
+Summary(pl.UTF-8):	Obsługa interfejsu WebDriver dla Firefoksa
 Name:		selenium-firefoxdriver
 Version:	3.8.0
 Release:	1
@@ -6,7 +7,9 @@ License:	Distributable
 Group:		Applications
 Source0:	http://http.debian.net/debian/pool/non-free/s/selenium-firefoxdriver/%{name}_%{version}.orig.tar.gz
 # Source0-md5:	e578d75398cd201c6cec5111be51a877
-URL:		-
+Obsoletes:	firefox-addon-selenium < 3.11.0-5
+Obsoletes:	iceweasel-addon-selenium < 2.47.1-5
+Obsoletes:	python-selenium-iceweasel-addon < 2.1
 ExclusiveArch:	%{x8664} %{ix86}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -19,14 +22,21 @@ itself being reloaded. WebDriver's goal is to supply a well-designed
 object-oriented API that provides improved support for modern advanced
 web-app testing problems.
 
+%description -l pl.UTF-8
+WebDriver to interfejs zaprojektowany jako prostszy, bardziej zwięzły,
+ponadto rozwiązujący niektóre ograniczenia API Selenium-RC.
+Selenium-WebDriver powstał, aby lepiej obsługiwać dynamiczne strony
+WWW, gdzie elementy strony mogą się zmieniać bez przeładowania samej
+strony. Celem WebDrivera jest dostarczenie dobrze zaprojektowanego,
+zorientowanego obiektowo API zapewniającego lepsze wsparcie dla
+zagadnień związanych z testowaniem bardziej nowoczesnych,
+zaawansowanych aplikacji WWW.
+
 %prep
 %setup -q -n selenium-%{version}
 
-%build
-
 %install
 rm -rf $RPM_BUILD_ROOT
-
 install -d $RPM_BUILD_ROOT%{_datadir}/firefoxdriver
 
 cp -p selenium/webdriver/firefox/webdriver.xpi $RPM_BUILD_ROOT%{_datadir}/firefoxdriver
@@ -47,5 +57,11 @@ rm -rf $RPM_BUILD_ROOT
 %doc CHANGES README.rst
 %{_datadir}/firefoxdriver
 %dir %{_libdir}/firefoxdriver
-%dir %{_libdir}/firefoxdriver/*6*
-%attr(755,root,root) %{_libdir}/firefoxdriver/*6*/x_ignore_nofocus.so
+%ifarch %{x8664}
+%dir %{_libdir}/firefoxdriver/amd64
+%attr(755,root,root) %{_libdir}/firefoxdriver/amd64/x_ignore_nofocus.so
+%endif
+%ifarch %{ix86}
+%dir %{_libdir}/firefoxdriver/x86
+%attr(755,root,root) %{_libdir}/firefoxdriver/x86/x_ignore_nofocus.so
+%endif
